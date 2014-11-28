@@ -101,3 +101,14 @@
     ZhangYou0122: Push-Relabel algorithm, Suffix Tree           
     UsingtcNower: Suffix Array
     afernandez90: AVL trees
+
+####Personal Document:
+    
+#####Goal:
+    
+   1.Transplant the algorithms form Mastering Algorithms with C into C++
+
+   2.Comply with the convention of this project
+
+   3.Learn from this project and apply into personal code and demos
+
