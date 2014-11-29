@@ -24,6 +24,8 @@
 #ifndef __LINKLIST_H__
 #define __LINKLIST_H__
 #include <stdlib.h>
+#include <iostream>
+using namespace std;
 namespace myalg 
 {
     template <typename T = int>
@@ -47,16 +49,9 @@ namespace myalg
                     this->next = NULL;
                     position = 0;
                     //mem_data = 0;//not sure
-                }
+                };
                 //overload operator =
-                l_mem operator =(const l_mem &tmp)
-                {
-                    l_mem tmp_ = new l_mem;
-                    tmp_.mem_data = tmp.mem_data;
-                    tmp_.position = tmp.position;
-                    tmp_.next = tmp.next;
-                    return tmp;
-                }
+                l_mem operator =(const l_mem &tmp);
         };
 
     template <typename T1 = int>
@@ -105,45 +100,7 @@ namespace myalg
 
                 //insert the next member after the member ins_pos,
                 //-1 for the failing to insert and 0 for successing to insert
-                int linklist_ins_next(T1 ins_data, l_mem<T1> *ins_pos = NULL)
-                {
-                    l_mem<T1> *ins = new l_mem<T1>;
-                    if(ins == NULL) return -1;
-                    ins->setdata(ins_data);
-
-                    if(ins_pos == NULL)//insert at the head for default
-                    {
-                        ins->setnext(this->head->getnext());
-                        this->head->setnext(ins);
-                        ins->setpos(this->head->getpos() + 1);
-                        this->size++;
-                        if(this->size == 1)
-                        {
-                            this->tail = ins;
-                            ins->setnext(NULL);
-                        }
-                        this->tail->setpos(this->size);
-                    }
-                    else
-                    {
-                        ins->setnext(ins_pos->getnext());
-                        ins_pos->setnext(ins);
-                        ins->setpos(ins_pos->getpos() + 1);
-                        this->size++;
-                        if(ins->getnext() == NULL)
-                        {
-                            this->tail = ins;
-                            this->tail->setnext(NULL);
-                        }
-                        else
-                        {
-                            this->tail->setpos(this->size);
-                            this->tail->setnext(NULL);
-                        }
-                    }
-                    return 0;
-
-                };
+                int linklist_ins_next(T1 ins_data, l_mem<T1> *ins_pos = NULL);
 
                 //remove the member
                 int rm_next(l_mem<T1> *rm_pos)
