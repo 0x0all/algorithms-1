@@ -1,15 +1,24 @@
 #include <iostream>
 #include "linklist.h"
 using namespace std;
-using myalg::linklist;
+using namespace myalg;
 
 int main()
 {
-    linklist * mylist = new linklist;
+    linklist<int>  mylist;
     l_mem<int> * mem1 = new l_mem<int>;
     int a = 10;
-    mylist->linklist->ins->next(a);
-    mylist->find_mem(a, mem1);
     int b =12;
-    mylist->linklist->ins->next(mem1, b);
+    int c = 14;
+    int d = 22;
+    mylist.linklist_ins_next(a);
+    mylist.print_list();
+    l_mem<int> * mem2 = mylist.find_mem(a);
+    mylist.linklist_ins_next(b, mem2);
+    mylist.linklist_ins_next(c, mem2);
+    mylist.linklist_ins_next(d);
+    mylist.print_list();
+    mylist.rm_next(mem2);
+    mylist.print_list();
+    delete mem1;
 }

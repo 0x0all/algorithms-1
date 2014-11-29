@@ -2,7 +2,7 @@
 #environment
 CC = g++
 FLAGS_DEBUG = -g
-FLAGS_COMPILE = -c -Wall -Wextra -Werror -std=c++
+FLAGS_COMPILE = -c -Wall -Wextra -Werror
 
 #directory
 SHELL = /bin/sh
