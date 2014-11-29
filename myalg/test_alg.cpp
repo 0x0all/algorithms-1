@@ -1,7 +1,7 @@
 #include <iostream>
 #include "linklist.h"
 using namespace std;
-using alg::linklist;
+using myalg::linklist;
 
 int main()
 {
