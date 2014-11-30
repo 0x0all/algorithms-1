@@ -21,9 +21,8 @@
  # 
  # Description: All Rights Are Reserved                 
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/ 
-#ifndef __LINKLIST_H__
-#define __LINKLIST_H__
-#include <stdlib.h>
+#ifndef LINKLIST_H_
+#define LINKLIST_H_
 #include <iostream>
 using namespace std;
 namespace myalg 
@@ -44,12 +43,7 @@ namespace myalg
                 inline void setnext(l_mem * n){this->next = n;};
                 inline l_mem * getnext(){return next;};
                 //default constructor
-                l_mem()
-                {
-                    this->next = NULL;
-                    position = 0;
-                    //mem_data = 0;//not sure
-                };
+                l_mem();
                 //overload operator =
                 l_mem operator =(const l_mem &tmp);
         };
@@ -68,98 +62,26 @@ namespace myalg
 
             public:
                 //default constructor
-                linklist()
-                {
-                    this->size = 0;
-                    this->head = new l_mem<T1>;
-                    head->setpos(0);
-                    //this->tail = new l_mem<T1>;
-                    //this->tail->setnext(NULL);
-                    head->setpos(this->size);
-                };
+                linklist();
 
                 //copy constructor
-                linklist(const linklist& other_list)
-                {
-                    this->size += other_list.getsize();
-                    //this->head = (l_mem*)malloc(sizeof *head);
-                    *head = *(other_list.head);
-                    //this->tail = (l_mem*)malloc(sizeof *tail);
-                    *tail = *(other_list.tail);
-                    this->size = other_list.getsize();
-                };
+                linklist(linklist& other_list);
 
                 //destructor
-                ~linklist()
-                {
-                    delete head;
-                    //free(head);
-                    delete tail;
-                    //free(head);
-                };
+                ~linklist();
 
                 //insert the next member after the member ins_pos,
                 //-1 for the failing to insert and 0 for successing to insert
                 int linklist_ins_next(T1 ins_data, l_mem<T1> *ins_pos = NULL);
 
                 //remove the member
-                int rm_next(l_mem<T1> *rm_pos)
-                {
-                    if(rm_pos == NULL || rm_pos->getnext() ==NULL) return -1;//error removement
-                    l_mem<T1> * del = rm_pos->getnext();
-                    rm_pos->setnext(del->getnext());
-                    this->size--;
-                    l_mem<T1> * tmp = rm_pos->getnext();
-                    int i = 0;
-                    while(tmp != NULL)
-                    {
-                        tmp->setpos(tmp->getpos() - 1);
-                        tmp = tmp->getnext();
-                        std::cout<<"loop:"<<++i<<std::endl;
-                    }
-                    delete del;
-                    return 0;//finish removement
-                };
+                int rm_next(l_mem<T1> *rm_pos);
                 
                 //find the mem
-                l_mem<T1>* find_mem(T1 find_data)
-                {
-                    l_mem<T1> * tmp = this->head;
-                    if(tmp == NULL) return NULL;
-
-                    tmp = tmp->getnext();
-                    while(tmp != NULL)
-                    {
-                        if(tmp->getdata() != find_data)
-                        {
-                            tmp = tmp->getnext();
-                            continue;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    return tmp;
-                };
+                l_mem<T1>* find_mem(T1 find_data);
 
 
-                void print_list()
-                {
-                    l_mem<T1>* tmp = this->head->getnext();
-                    int s = this->size;
-                    std::cout<<"head"<<std::endl;
-                    std::cout<<" |"<<std::endl;
-                    while(s > 0)
-                    {
-                        T1 out = tmp->getdata();
-                        std::cout<<out<<std::endl;
-                        tmp = tmp->getnext();
-                        s--;
-                    }
-                    std::cout<<" |"<<std::endl;
-                    std::cout<<"tail"<<std::endl;
-                };
+                void print_list();
 
                 //l_mem<T1> * gettail()
                 //{

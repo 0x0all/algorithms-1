@@ -21,4 +21,5 @@ int main()
     mylist.rm_next(mem2);
     mylist.print_list();
     delete mem1;
+    return 0;
 }
