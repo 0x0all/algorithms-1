@@ -30,7 +30,7 @@ namespace myalg
     template <typename T = int>
         //define the list member class
         class l_mem
-         {
+        {
             private:
                 T mem_data;
                 int position;

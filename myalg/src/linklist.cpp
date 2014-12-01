@@ -91,6 +91,12 @@ int linklist<T1>::linklist_ins_next(T1 ins_data, l_mem<T1> *ins_pos)
         ins->setnext(this->head->getnext());
         this->head->setnext(ins);
         ins->setpos(this->head->getpos() + 1);
+        l_mem<T1> *poschange = ins->getnext();
+        while(poschange != NULL)
+        {
+            poschange->setpos(poschange->getpos() + 1);
+            poschange = poschange->getnext();
+        }
         this->size++;
         if(this->size == 1)
         {
@@ -104,6 +110,12 @@ int linklist<T1>::linklist_ins_next(T1 ins_data, l_mem<T1> *ins_pos)
          ins->setnext(ins_pos->getnext());
          ins_pos->setnext(ins);
          ins->setpos(ins_pos->getpos() + 1);
+         l_mem<T1> *poschange = ins->getnext();
+         while(poschange != NULL)
+         {
+             poschange->setpos(poschange->getpos() + 1);
+             poschange = poschange->getnext();
+         }
          this->size++;
          if(ins->getnext() == NULL)
          {
@@ -173,7 +185,8 @@ void linklist<T1>::print_list()
     while(s > 0)
     {
         T1 out = tmp->getdata();
-        std::cout<<out<<std::endl;
+        int position = tmp->getpos();
+        std::cout<<out<<"--"<<position<<std::endl;
         tmp = tmp->getnext();
         s--;
     }

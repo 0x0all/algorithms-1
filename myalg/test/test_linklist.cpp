@@ -20,6 +20,12 @@ int main()
     mylist.print_list();
     mylist.rm_next(mem2);
     mylist.print_list();
+    l_mem<int> * mem3 = mylist.find_mem(c);
+    if(mem3 == NULL)cout<<"can not find the mem"<<endl;
+    mem3 = mylist.find_mem(d);
+    if(mem3 != NULL)cout<<mem3->getdata()<<endl;
+    mylist.linklist_ins_next(555,mem3);
+    mylist.print_list();
     delete mem1;
     return 0;
 }
