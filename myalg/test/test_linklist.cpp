@@ -46,17 +46,11 @@ int main()
     mydol.print_list();
     mydol.linklist_ins_pre(D);
     mydol.print_list();
-    cout<<"demem2:"<<dmem2<<endl;
     mydol.rm_pre(dmem2);
-    cout<<"demem2:"<<dmem2<<endl;
     mydol.print_list();
-    cout<<"end of print !!!"<<endl;
     dl_mem<int> * dmem3 = mydol.find_mem(C);
-    cout<<"find mem3"<<dmem3<<endl;
     if(dmem3 == NULL)cout<<"can not find the mem"<<endl;
     dmem3 = mydol.find_mem(D);
-    cout<<"yes"<<endl;
-    if(dmem3 != NULL)cout<<dmem3->getdata()<<endl;
     mydol.linklist_ins_next(555,dmem3);
     mydol.print_list();
     delete dmem1;

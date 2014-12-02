@@ -36,12 +36,12 @@ namespace myalg
                 int position;
                 l_mem *next;
             public:
-                virtual inline int getpos(){return position;};
-                virtual inline void setpos(int pos){this->position = pos;};
-                virtual inline T getdata(){return mem_data;};
-                virtual inline void setdata(T data){this->mem_data = data;};
-                virtual inline void setnext(l_mem * n){this->next = n;};
-                virtual inline l_mem * getnext(){return next;};
+                inline int getpos(){return position;};
+                inline void setpos(int pos){this->position = pos;};
+                inline T getdata(){return mem_data;};
+                inline void setdata(T data){this->mem_data = data;};
+                inline void setnext(l_mem * n){this->next = n;};
+                inline l_mem * getnext(){return next;};
                 //default constructor
                 l_mem();
                 virtual ~l_mem();
@@ -78,7 +78,7 @@ namespace myalg
                 //{
                     //return this->tail;
                 //};
-                virtual inline int getsize(){return size;};
+                inline int getsize(){return size;};
         };
 }
 #endif

@@ -37,12 +37,12 @@ namespace myalg
                 dl_mem();
                 //dl_mem(dl_mem & cp);
                 dl_mem operator=(dl_mem assi);
-                virtual inline int getpos(){return this->position;};
-                virtual inline void setpos(int pos){this->position = pos;};
-                virtual inline T getdata(){return this->mem_data;};
-                virtual inline void setdata(T data){this->mem_data = data;};
-                virtual inline void setnext(dl_mem * n){this->next = n;};
-                virtual inline dl_mem * getnext(){return next;};
+                inline int getpos(){return this->position;};
+                inline void setpos(int pos){this->position = pos;};
+                inline T getdata(){return this->mem_data;};
+                inline void setdata(T data){this->mem_data = data;};
+                inline void setnext(dl_mem * n){this->next = n;};
+                inline dl_mem * getnext(){return next;};
                 inline void setpre(dl_mem * n){this->pre = n;};
                 inline dl_mem * getpre(){return pre;};
         };

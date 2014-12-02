@@ -65,7 +65,6 @@ int dou_list<T1>::rm_pre(dl_mem<T1> *rm_pos)
     if(rm_pos == NULL || rm_pos->getpre() ==NULL) return -1;//error removement
     dl_mem<T1> * del = rm_pos->getpre();
     dl_mem<T1> * _del =del->getpre();
-    cout<<del<<"|"<<_del<<endl;
     rm_pos->setpre(_del);
     _del->setnext(rm_pos);
     this->size--;
@@ -123,7 +122,7 @@ void dou_list<T1>::print_list()
     {
         T1 out = tmp->getdata();
         int position = tmp->getpos();
-        std::cout<<out<<"--"<<position<<"pre "<<tmp->getnext()<<" now "<<tmp<<" next "<<tmp->getnext()<<std::endl;
+        std::cout<<out<<"--"<<position<<"pre "<<tmp->getpre()<<" now "<<tmp<<" next "<<tmp->getnext()<<std::endl;
         tmp = tmp->getnext();
         s--;
     }
@@ -137,7 +136,6 @@ int dou_list<T1>::linklist_ins_next(T1 ins_data, dl_mem<T1> *ins_pos)
     dl_mem<T1> *ins = new dl_mem<T1>;
     if(ins == NULL) return -1;
     ins->setdata(ins_data);
-
     if(ins_pos == NULL)//insert at the head for default
     {
         ins->setpre(this->head);
@@ -172,13 +170,14 @@ int dou_list<T1>::linklist_ins_next(T1 ins_data, dl_mem<T1> *ins_pos)
          if(ins_pos->getnext() == NULL)
          {
              ins->setnext(NULL);
+             ins_pos->setnext(ins);
          }
          else
          {
              ins->setnext(ins_pos->getnext());
+             ins_pos->getnext()->setpre(ins);
+             ins_pos->setnext(ins);
          }
-         ins_pos->setnext(ins);
-         ins_pos->getnext()->setpre(ins);
          ins->setpos(ins_pos->getpos() + 1);
          l_mem<T1> *poschange = ins->getnext();
          while(poschange != NULL)
@@ -190,12 +189,12 @@ int dou_list<T1>::linklist_ins_next(T1 ins_data, dl_mem<T1> *ins_pos)
          if(ins->getnext() == NULL)
          {
              this->tail = ins;
-            this->tail->setnext(NULL);
+             this->tail->setnext(NULL);
          }
          else
          {
-            this->tail->setpos(this->size);
-            this->tail->setnext(NULL);
+             this->tail->setpos(this->size);
+             this->tail->setnext(NULL);
          }
      }
      return 0;
@@ -219,8 +218,8 @@ int dou_list<T1>::linklist_ins_pre(T1 ins_data, dl_mem<T1> *ins_pos)
         else
         {
             ins->setnext(this->head->getnext());
-            this->head->setnext(ins);
             this->head->getnext()->setpre(ins);
+            this->head->setnext(ins);
         }
         ins->setpos(this->head->getpos() + 1);
         dl_mem<T1> *poschange = ins->getnext();
@@ -236,7 +235,7 @@ int dou_list<T1>::linklist_ins_pre(T1 ins_data, dl_mem<T1> *ins_pos)
             ins->setnext(NULL);
         }
         this->tail->setpos(this->size);
-     }
+    }
     else
     {
         ins->setnext(ins_pos);
