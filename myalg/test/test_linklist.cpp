@@ -1,5 +1,6 @@
 #include <iostream>
 #include "linklist.h"
+#include "dou_list.h"
 using namespace std;
 using namespace myalg;
 
@@ -27,5 +28,39 @@ int main()
     mylist.linklist_ins_next(555,mem3);
     mylist.print_list();
     delete mem1;
+
+    //double-link list
+    cout<<"start the double-link list!"<<endl;
+    dou_list<int> mydol;
+    dl_mem<int> * dmem1 = new dl_mem<int>;
+    int A = 10;
+    int B =12;
+    int C = 14;
+    int D = 22;
+    mydol.linklist_ins_pre(A);
+    mydol.print_list();
+    dl_mem<int> * dmem2 = mydol.find_mem(A);
+    mydol.linklist_ins_pre(B, dmem2);
+    mydol.print_list();
+    mydol.linklist_ins_next(C, dmem2);
+    mydol.print_list();
+    mydol.linklist_ins_pre(D);
+    mydol.print_list();
+    cout<<"demem2:"<<dmem2<<endl;
+    mydol.rm_pre(dmem2);
+    cout<<"demem2:"<<dmem2<<endl;
+    mydol.print_list();
+    cout<<"end of print !!!"<<endl;
+    dl_mem<int> * dmem3 = mydol.find_mem(C);
+    cout<<"find mem3"<<dmem3<<endl;
+    if(dmem3 == NULL)cout<<"can not find the mem"<<endl;
+    dmem3 = mydol.find_mem(D);
+    cout<<"yes"<<endl;
+    if(dmem3 != NULL)cout<<dmem3->getdata()<<endl;
+    mydol.linklist_ins_next(555,dmem3);
+    mydol.print_list();
+    delete dmem1;
+
+
     return 0;
 }

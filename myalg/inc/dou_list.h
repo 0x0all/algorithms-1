@@ -26,28 +26,42 @@
 #include "linklist.h"
 namespace myalg
 {
-    template <typename T>
-        class dl_mem: public l_mem
+    using namespace myalg;
+    template <typename T = int>
+        class dl_mem:public l_mem<T>
         {
             private:
                 dl_mem *pre;
+                dl_mem *next;
             public:
                 dl_mem();
-                dl_mem(dl_mem & cp);
+                //dl_mem(dl_mem & cp);
                 dl_mem operator=(dl_mem assi);
-                inline void setpre(l_mem * n){this->pre = n;};
-                inline l_mem * getpre(){return pre;};
+                virtual inline int getpos(){return this->position;};
+                virtual inline void setpos(int pos){this->position = pos;};
+                virtual inline T getdata(){return this->mem_data;};
+                virtual inline void setdata(T data){this->mem_data = data;};
+                virtual inline void setnext(dl_mem * n){this->next = n;};
+                virtual inline dl_mem * getnext(){return next;};
+                inline void setpre(dl_mem * n){this->pre = n;};
+                inline dl_mem * getpre(){return pre;};
         };
-    template <typename T1>
-        class dou_list: public link
+
+    template <typename T1 = int>
+        class dou_list:public linklist<T1>
         {
             private:
+                dl_mem<T1> *head;
+                dl_mem<T1> *tail;
             public:
                 dou_list();
                 dou_list(dou_list & cp);
-                ~dou_list();
-                int linklist_ins_pre(T1 ins_data, l_mem<T1> *ins_pos = NULL);
-                int rm_pre(l_mem<T1> *rm_pos);
+                int linklist_ins_pre(T1 ins_data, dl_mem<T1> *ins_pos = NULL);
+                int linklist_ins_next(T1 ins_data, dl_mem<T1> *ins_pos = NULL);
+                virtual ~dou_list();
+                int rm_pre(dl_mem<T1> *rm_pos);
+                dl_mem<T1>* find_mem(T1 find_data);
+                void print_list();
         };
 }
 #endif

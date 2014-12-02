@@ -34,7 +34,6 @@ l_mem<T> l_mem<T>::operator =(const l_mem<T> &tmp)
     tmp_.next = tmp.next;
     return tmp;
 }
-//template l_mem<int> l_mem<int>::operator =<int>(const l_mem<T> &tmp);
 
 template<typename T>
 l_mem<T>::l_mem()
@@ -43,7 +42,12 @@ l_mem<T>::l_mem()
     position = 0;
     //mem_data = 0;//not sure
 }
-//template l_mem<int>::l_mem<int>();
+
+template <typename T>
+l_mem<T>::~l_mem()
+{
+    cout<<"destructor"<<endl;
+}
 
 template<typename T1>
 linklist<T1>::linklist()
