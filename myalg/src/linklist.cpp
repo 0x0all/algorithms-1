@@ -28,60 +28,72 @@ using namespace myalg;
 template<typename T>
 l_mem<T> l_mem<T>::operator =(const l_mem<T> &tmp)
 {
-    l_mem tmp_;
-    tmp_.mem_data = tmp.mem_data;
-    tmp_.position = tmp.position;
-    tmp_.next = tmp.next;
-    return tmp;
+    this->mem_data = tmp.mem_data;
+    cout<<mem_data<<endl;
+    this->position = tmp.position;
+    cout<<position<<endl;
+    this->next = tmp.next;
+    cout<<next<<endl;
+    return *this;
 }
 
 template<typename T>
 l_mem<T>::l_mem()
 {
+    cout<<"constructor a new object!"<<endl;
     this->next = NULL;
     position = 0;
     //mem_data = 0;//not sure
 }
 
-template <typename T>
-l_mem<T>::~l_mem()
-{
-    cout<<"destructor"<<endl;
-}
+//template <typename T>
+//l_mem<T>::~l_mem()
+//{
+//    cout<<"destructor"<<endl;
+//}
 
 template<typename T1>
 linklist<T1>::linklist()
 {
     this->size = 0;
     this->head = new l_mem<T1>;
-    head->setpos(0);
-    //this->tail = new l_mem<T1>;
-    //this->tail->setnext(NULL);
-    head->setpos(this->size);
+    this->head->setpos(0);
+    this->tail = new l_mem<T1>;
+    this->tail->setnext(NULL);
+    this->tail->setpos(0);
 }
 //template linklist<int>::linklist<int>();
 
 template<typename T1>
-linklist<T1>::linklist(linklist& other_list)
+linklist<T1>::linklist(const linklist& other_list)
 {
-    this->size += other_list.getsize();
-    //this->head = (l_mem*)malloc(sizeof *head);
-    *head = *(other_list.head);
-    //this->tail = (l_mem*)malloc(sizeof *tail);
-    *tail = *(other_list.tail);
-    this->size = other_list.getsize();
+    cout<<"copied list"<<endl;
+    this->head = new l_mem<T1>;
+    this->size = 0;
+    this->head->setpos(0);
+    this->tail = new l_mem<T1>;
+    this->tail->setpos(0);
+    this->tail->setnext(NULL);
+    l_mem<T1> *tmp = other_list.head->getnext();
+    l_mem<T1> *tmp_ins = this->head;
+    T1 data = tmp->getdata();
+    while(tmp)
+    {
+        data = tmp->getdata();
+        this->linklist_ins_next(data, tmp_ins);
+        tmp_ins = tmp_ins->getnext();
+        tmp = tmp->getnext();
+    }
+    this->tail->setnext(tmp_ins);
+    tmp_ins->setnext(NULL);
 }
-//template linklist<int>::linklist<int>(const linklist other_list);
 
 template<typename T1>
 linklist<T1>::~linklist()
 {
     delete head;
-    //free(head);
     delete tail;
-    //free(head);
 }
-//template linklist<int>::~linklist<int>();
 
 template<typename T1>
 int linklist<T1>::linklist_ins_next(T1 ins_data, l_mem<T1> *ins_pos)
@@ -104,10 +116,9 @@ int linklist<T1>::linklist_ins_next(T1 ins_data, l_mem<T1> *ins_pos)
         this->size++;
         if(this->size == 1)
         {
-            this->tail = ins;
+            this->tail->setnext(ins);
             ins->setnext(NULL);
         }
-        this->tail->setpos(this->size);
      }
      else
      {
@@ -123,18 +134,12 @@ int linklist<T1>::linklist_ins_next(T1 ins_data, l_mem<T1> *ins_pos)
          this->size++;
          if(ins->getnext() == NULL)
          {
-             this->tail = ins;
-            this->tail->setnext(NULL);
-         }
-         else
-         {
-            this->tail->setpos(this->size);
-            this->tail->setnext(NULL);
+             this->tail->setnext(ins);
+             ins->setnext(NULL);
          }
      }
      return 0;
 }
-//template int linklist<int>::linklist_ins_next<int>(int ins_data, l_mem<int> *ins_pos);
 
 template<typename T1>
 int linklist<T1>::rm_next(l_mem<T1> *rm_pos)
@@ -142,6 +147,11 @@ int linklist<T1>::rm_next(l_mem<T1> *rm_pos)
     if(rm_pos == NULL || rm_pos->getnext() ==NULL) return -1;//error removement
     l_mem<T1> * del = rm_pos->getnext();
     rm_pos->setnext(del->getnext());
+    if(del->getnext() == NULL)//if remove the last one ,reset the tail
+    {
+        this->tail->setnext(rm_pos);
+        rm_pos->setnext(NULL);
+    }
     this->size--;
     l_mem<T1> * tmp = rm_pos->getnext();
     int i = 0;
@@ -184,17 +194,17 @@ void linklist<T1>::print_list()
 {
     l_mem<T1>* tmp = this->head->getnext();
     int s = this->size;
-    std::cout<<"head"<<std::endl;
+    std::cout<<"head "<<this->head<<std::endl;
     std::cout<<" |"<<std::endl;
     while(s > 0)
     {
         T1 out = tmp->getdata();
         int position = tmp->getpos();
-        std::cout<<out<<"--"<<position<<std::endl;
+        std::cout<<out<<"--"<<position<<" now "<<tmp<<" next "<<tmp->getnext()<<std::endl;
         tmp = tmp->getnext();
         s--;
     }
     std::cout<<" |"<<std::endl;
-    std::cout<<"tail"<<std::endl;
+    std::cout<<"tail "<<this->tail<<std::endl;
 }
 //template void linklist<int>::print_list<int>();

@@ -83,7 +83,7 @@ int dou_list<T1>::rm_pre(dl_mem<T1> *rm_pos)
 template <typename T1>
 dl_mem<T1>* dou_list<T1>::find_mem(T1 find_data)
 {
-    dl_mem<T1> * tmp = this->head;
+    dl_mem<T1> * tmp = new dl_mem<T1>;
     if(tmp == NULL) return NULL;
 
     tmp = tmp->getnext();

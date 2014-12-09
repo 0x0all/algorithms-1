@@ -44,7 +44,7 @@ namespace myalg
                 inline l_mem * getnext(){return next;};
                 //default constructor
                 l_mem();
-                virtual ~l_mem();
+                //virtual ~l_mem();
                 //overload operator =
                 l_mem operator =(const l_mem &tmp);
         };
@@ -63,7 +63,7 @@ namespace myalg
                 //default constructor
                 linklist();
                 //copy constructor
-                linklist(linklist& other_list);
+                linklist(const linklist& other_list);
                 //destructor
                 virtual ~linklist();
                 //insert the next member after the member ins_pos,
@@ -74,10 +74,14 @@ namespace myalg
                 //find the mem
                 l_mem<T1>* find_mem(T1 find_data);
                 void print_list();
-                //l_mem<T1> * gettail()
-                //{
-                    //return this->tail;
-                //};
+                inline l_mem<T1> * gethead()
+                {
+                    return this->head;
+                };
+                inline l_mem<T1> *gettail()
+                {
+                    return this->tail;
+                }
                 inline int getsize(){return size;};
         };
 }
